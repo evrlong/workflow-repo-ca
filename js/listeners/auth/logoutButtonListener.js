@@ -1,13 +1,13 @@
-import { clearStorage } from "../../utils/storage.js";
+import { clearStorage } from '../../utils/storage.js';
 
 export function logoutButtonListener() {
-  const logoutButton = document.querySelector("#logoutButton");
+  const logoutButton = document.querySelector('#logoutButton');
   console.log(logoutButton);
 
   if (logoutButton) {
-    logoutButton.addEventListener("click", () => {
+    logoutButton.addEventListener('click', () => {
       clearStorage();
-      window.location.href = "/login";
+      window.location.href = '/login';
     });
   }
 }
