@@ -1,17 +1,29 @@
-// playwright.config.js
-// @ts-check
-import { defineConfig } from '@playwright/test';
+/* eslint-env node */
+
+import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+dotenv.config(); // Laster variabler fra .env
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
-  retries: 1,
+  timeout: 30_000,
   use: {
+    baseURL: process.env.E2E_BASE_URL || 'http://localhost:5173',
     headless: true,
-    viewport: { width: 1280, height: 720 },
-    actionTimeout: 0,
-    baseURL: 'http://localhost:5050', // tilpass hvis du kjører dev-server
-    video: 'retain-on-failure',
+    trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+  },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    // Du kan ta med Firefox/WebKit også om ønskelig
+  ],
+  // Hvis du starter dev-server med "npm run dev", la Playwright gjøre det for deg:
+  // Bytt command til din dev-komando hvis den er annerledes.
+  webServer: {
+    command: 'npx http-server -p 5500 .',
+    url: process.env.E2E_BASE_URL || 'http://localhost:5500',
+    reuseExistingServer: true,
+    timeout: 120_000,
   },
 });

@@ -78,6 +78,23 @@ export default [
     },
   },
 
+  // Playwright-config (Node, ESM)
+  {
+    files: [
+      '**/playwright.config.js',
+      '**/playwright.config.mjs',
+      '**/playwright.config.ts',
+      '**/playwright.config.cjs',
+    ],
+    languageOptions: {
+      globals: globals.node,
+      ecmaVersion: 'latest',
+      // Bruk 'module' fordi du importerer med ESM i playwright.config.js
+      // (bytt til 'commonjs' hvis du bruker .cjs)
+      sourceType: 'module',
+    },
+  },
+
   // Ignorer bygg/avhengigheter
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**'],
