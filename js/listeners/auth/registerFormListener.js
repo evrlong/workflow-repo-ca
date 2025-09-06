@@ -1,14 +1,14 @@
-import { register } from "../../api/auth/register.js";
-import { displayMessage } from "../../ui/common/displayMessage.js";
-import MESSAGES from "../../constants/messages.js";
+import { register } from '../../api/auth/register.js';
+import { displayMessage } from '../../ui/common/displayMessage.js';
+import MESSAGES from '../../constants/messages.js';
 
 async function handleRegisterSubmit(event) {
   event.preventDefault();
   const form = event.target;
 
-  const messageContainer = document.querySelector("#message-container");
+  const messageContainer = document.querySelector('#message-container');
 
-  messageContainer.innerHTML = "";
+  messageContainer.innerHTML = '';
 
   const formData = new FormData(form);
   const profile = Object.fromEntries(formData.entries());
@@ -17,19 +17,19 @@ async function handleRegisterSubmit(event) {
     await register(profile);
     displayMessage(
       messageContainer,
-      "success",
+      'success',
       MESSAGES.en.registrationSuccess
     );
     form.reset();
   } catch (error) {
-    displayMessage(messageContainer, "error", error.message);
+    displayMessage(messageContainer, 'error', error.message);
   }
 }
 
 export function registerFormListener() {
-  const form = document.querySelector("#registerForm");
+  const form = document.querySelector('#registerForm');
 
   if (form) {
-    form.addEventListener("submit", handleRegisterSubmit);
+    form.addEventListener('submit', handleRegisterSubmit);
   }
 }

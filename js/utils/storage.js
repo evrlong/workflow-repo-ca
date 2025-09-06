@@ -1,5 +1,5 @@
-const tokenKey = "token";
-const userKey = "user";
+const tokenKey = 'token';
+export const userKey = 'user';
 
 export function saveToken(token) {
   saveToStorage(tokenKey, token);

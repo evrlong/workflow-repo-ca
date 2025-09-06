@@ -1,8 +1,8 @@
-import { CONFIG } from "../../config.js";
+import { CONFIG } from '../../config.js';
 
 export async function getVenue(id) {
   if (!id) {
-    throw new Error("No id provided");
+    throw new Error('No id provided');
   }
 
   const url = `${CONFIG.apiUrl}venues/${id}`;
@@ -12,7 +12,7 @@ export async function getVenue(id) {
   console.log(json);
 
   if (!response.ok) {
-    throw new Error(json.errors?.[0]?.message || "Fetching venue failed");
+    throw new Error(json.errors?.[0]?.message || 'Fetching venue failed');
   }
 
   return json;
