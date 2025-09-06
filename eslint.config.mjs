@@ -4,7 +4,6 @@ import pluginJs from '@eslint/js';
 import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 
-// Definer test-globals eksplisitt (fungerer uten at du må installere Jest)
 const testGlobals = {
   describe: 'readonly',
   it: 'readonly',
@@ -17,7 +16,6 @@ const testGlobals = {
 };
 
 export default [
-  // Standard: nettleser-kode
   {
     languageOptions: {
       globals: globals.browser,
@@ -26,13 +24,10 @@ export default [
     },
   },
 
-  // Anbefalte regler
   pluginJs.configs.recommended,
 
-  // Skru av regler som krasjer med Prettier
   prettierConfig,
 
-  // Kjør Prettier via ESLint
   {
     plugins: { prettier: prettierPlugin },
     rules: {
@@ -40,7 +35,6 @@ export default [
     },
   },
 
-  // ✅ Testfiler: tillat describe/it/expect osv.
   {
     files: ['**/*.test.js', '**/*.spec.js', 'tests/**/*.js'],
     languageOptions: {
@@ -53,7 +47,6 @@ export default [
     },
   },
 
-  // Node-baserte konfigfiler (CommonJS)
   {
     files: [
       '**/tailwind.config.js',
@@ -68,7 +61,6 @@ export default [
     },
   },
 
-  // Node-baserte konfigfiler (ESM)
   {
     files: ['**/tailwind.config.mjs', '**/postcss.config.mjs'],
     languageOptions: {
@@ -78,7 +70,6 @@ export default [
     },
   },
 
-  // Playwright-config (Node, ESM)
   {
     files: [
       '**/playwright.config.js',
@@ -89,13 +80,11 @@ export default [
     languageOptions: {
       globals: globals.node,
       ecmaVersion: 'latest',
-      // Bruk 'module' fordi du importerer med ESM i playwright.config.js
-      // (bytt til 'commonjs' hvis du bruker .cjs)
+
       sourceType: 'module',
     },
   },
 
-  // Ignorer bygg/avhengigheter
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**'],
   },
